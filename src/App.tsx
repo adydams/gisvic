@@ -1521,11 +1521,6 @@
 //   );
 // }
 
-
-
-
-
-
 // import React, { useState, useEffect } from "react";
 // import logo from "./assets/images//img_gisvicLogo.jpg";
 // import {
@@ -2237,10 +2232,6 @@
 //   );
 // }
 
-
-
-
-
 import React, { useState, useEffect } from "react";
 import logo from "./assets/images/img_gisvicLogo.jpg";
 import {
@@ -2261,9 +2252,13 @@ import {
   Award,
   TrendingUp,
 } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [toast, setToast] = useState({ type: "", message: "" });
+  const [submiProcessing, setsubmiProcessing] = useState(false);
+
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [scrollY, setScrollY] = useState(0);
   const [formData, setFormData] = useState({
@@ -2410,21 +2405,71 @@ const Index = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   alert(
+  //     "Thank you for your interest! We will get back to you soon. For immediate assistance, please reach out to us directly at hello@gisvic.com"
+  //   );
+  //   setFormData({
+  //     firstName: "",
+  //     lastName: "",
+  //     email: "",
+  //     projectDetails: "",
+  //   });
+  // };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    alert(
-      "Thank you for your interest! We will get back to you soon. For immediate assistance, please reach out to us directly at hello@gisvic.com"
-    );
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      projectDetails: "",
-    });
+    setsubmiProcessing(true);
+    emailjs
+      .send(
+        "service_ytfihlh", // from EmailJS dashboard
+        "template_x65zqxm", // from EmailJS dashboard
+        {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          projectDetails: formData.projectDetails,
+        },
+        "91TPBiw4vfGBgMJ6c" //'your_public_key' // from EmailJS account > Account > API Keys
+      )
+      .then((response) => {
+        setsubmiProcessing(false);
+        setToast({ type: "success", message: "Message sent successfully!" });
+      })
+      .catch((error) => {
+        setsubmiProcessing(false);
+        setToast({
+          type: "error",
+          message: "Failed to send message. Please try again.",
+        });
+        console.log("Message failed.");
+      });
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-blue-50/30 relative overflow-hidden">
+      {toast.message && (
+        <div
+          className={`fixed top-20 right-3 z-40 flex items-center w-full max-w-xs p-4 rounded-lg shadow-sm text-sm font-medium
+            ${
+              toast.type === "success"
+                ? "bg-green-100 text-green-700 border border-green-300"
+                : "bg-red-100 text-red-700 border border-red-300"
+            }
+          `}
+          role="alert"
+        >
+          <div className="mr-3">{toast.type === "success" ? "✅" : "❌"}</div>
+          <div className="flex-1">{toast.message}</div>
+          <button
+            onClick={() => setToast({ type: "", message: "" })}
+            className="ml-4 text-gray-500 hover:text-gray-800"
+          >
+            ✖
+          </button>
+        </div>
+      )}
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating Orbs with professional blue-gray colors */}
@@ -2458,7 +2503,7 @@ const Index = () => {
             {/* Logo */}
             <div className="flex items-center space-x-3 group">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg shadow-slate-300/30 group-hover:shadow-slate-400/50 transition-all duration-300 group-hover:scale-110 overflow-hidden">
-                <img 
+                <img
                   src={logo}
                   alt="Gisvic Logo"
                   className="w-full h-full object-contain"
@@ -2919,12 +2964,26 @@ const Index = () => {
                     required
                   />
                 </div>
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-slate-600 to-blue-600 text-white py-4 px-6 rounded-xl hover:from-slate-700 hover:to-blue-700 transition-all transform hover:scale-105 font-semibold shadow-xl shadow-slate-300/30 hover:shadow-slate-400/50"
-                >
-                  Send Message
-                </button>
+                {!submiProcessing && (
+                  <button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-slate-600 to-blue-600 text-white py-4 px-6 rounded-xl hover:from-slate-700 hover:to-blue-700 transition-all transform hover:scale-105 font-semibold shadow-xl shadow-slate-300/30 hover:shadow-slate-400/50"
+                  >
+                    Send Message
+                  </button>
+                )}
+                {submiProcessing && (
+                  <button
+                    disabled
+                    className="w-full bg-gradient-to-r from-slate-600 to-blue-600 text-white py-4 px-6 rounded-xl hover:from-slate-700 hover:to-blue-700 transition-all transform hover:scale-105 font-semibold shadow-xl shadow-slate-300/30 hover:shadow-slate-400/50"
+                  >
+                    <svg
+                      className="mr-3 size-5 animate-spin ..."
+                      viewBox="0 0 24 24"
+                    ></svg>
+                    Processing…
+                  </button>
+                )}
               </form>
             </div>
           </div>
@@ -2937,8 +2996,8 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-sm overflow-hidden">
-                <img 
-                  src="/lovable-uploads/2afc852d-531a-4920-8ae9-ae491aea435b.png" 
+                <img
+                  src="/lovable-uploads/2afc852d-531a-4920-8ae9-ae491aea435b.png"
                   alt="Gisvic Logo"
                   className="w-full h-full object-contain"
                 />
