@@ -2242,7 +2242,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import logo from "./assets/images//img_gisvicLogo.jpg";
+import logo from "./assets/images/img_gisvicLogo.jpg";
 import {
   Mail,
   Phone,
@@ -2377,19 +2377,19 @@ const Index = () => {
   const stats = [
     {
       icon: <Users className="w-6 h-6" />,
-      number: "50+",
+      number: "1+",
       label: "Happy Clients",
       color: "text-blue-600",
     },
     {
       icon: <Code className="w-6 h-6" />,
-      number: "100+",
+      number: "3+",
       label: "Projects Completed",
       color: "text-slate-600",
     },
     {
       icon: <Award className="w-6 h-6" />,
-      number: "5+",
+      number: "1",
       label: "Years Experience",
       color: "text-gray-600",
     },
@@ -2592,7 +2592,7 @@ const Index = () => {
               </span>
             </h2>
 
-            <p className="text-xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl text-slate-800  mb-12 leading-relaxed max-w-3xl mx-auto">
               We create innovative technology solutions that solve real-world
               problems and drive business success. From mobile apps to fintech
               platforms, we build software that makes a difference.
@@ -2824,7 +2824,7 @@ const Index = () => {
                   Email Us
                 </h4>
                 <p className="text-slate-600 group-hover:text-slate-700 transition-colors">
-                  hello@gisvic.com
+                  gisvicsolutions@gmail.com
                 </p>
               </div>
               <div className="text-center group">
@@ -2835,7 +2835,10 @@ const Index = () => {
                   Call Us
                 </h4>
                 <p className="text-slate-600 group-hover:text-slate-700 transition-colors">
-                  +234 (0) 123-456-7890
+                  +234 (0) 7061275837
+                </p>
+                <p className="text-slate-600 group-hover:text-slate-700 transition-colors">
+                  +234 (0) 8132128706
                 </p>
               </div>
               <div className="text-center group">
