@@ -2980,7 +2980,21 @@ const Index = () => {
                     <svg
                       className="mr-3 size-5 animate-spin ..."
                       viewBox="0 0 24 24"
-                    ></svg>
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      ></path>
+                    </svg>
                     Processing…
                   </button>
                 )}
@@ -2995,9 +3009,9 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-sm overflow-hidden">
+              <div className="w-14 h-14 rounded-lg flex items-center justify-center shadow-sm overflow-hidden">
                 <img
-                  src="/lovable-uploads/2afc852d-531a-4920-8ae9-ae491aea435b.png"
+                  src={logo}
                   alt="Gisvic Logo"
                   className="w-full h-full object-contain"
                 />
